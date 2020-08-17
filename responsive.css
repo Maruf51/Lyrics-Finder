@@ -1,0 +1,63 @@
+@media(max-width:1024px) {
+    p {
+        font-size: 16px !important;
+    }
+
+    #lyricsName {
+        font-size: 28px;
+    }
+
+    #lyrics {
+        font-size: 16px;
+    }
+
+    .single-result {
+        margin: 0 !important;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px 20px !important;
+    }
+
+    .form-control {
+        padding: 19px !important;
+    }
+}
+
+@media(max-width:767px){
+    .lyrics-name {
+        font-size: 25px;
+    }
+    
+    p {
+        font-size: 15px !important;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+
+    .search-btn {
+        margin-top: 0;
+    }
+}
+
+@media(max-width:415px){
+    .lyrics-name{
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    #lyricsName {
+        font-size: 20px;
+        margin: 0 5%;
+    }
+
+    #lyrics {
+        font-size: 12px;
+    }
+}
