@@ -1,27 +1,29 @@
 
 
 document.getElementById('search-btn').addEventListener('click', function(){
-    document.getElementById('pre').style.display = "none";
-    document.getElementById('lyrics').innerText = "";
-    document.getElementById('lyricsName').innerText = "";
+    document.getElementById('pre').style.display = "none"; // for hiding pre tag
+    document.getElementById('lyrics').innerText = ""; // for doing empty lyrics area
+    document.getElementById('lyricsName').innerText = ""; // for doing empty lyrics name area
     
 
-    var inputValue = document.getElementById('input-value').value;
+    var inputValue = document.getElementById('input-value').value; // getting value from search box
 
-    if(inputValue == ''){
+    if(inputValue == ''){ // if input value is empty this will do a alert
         alert('Please Write a Song Name. Then try again...')
     }
 
     else{
-        fetch('https://api.lyrics.ovh/suggest/'+inputValue+'')
+        fetch('https://api.lyrics.ovh/suggest/'+inputValue+'') // getting song info from server
         .then(response => response.json())
         .then(data => {
     
+            // if you search song again, this will delete the previous search data
             var list = document.getElementById("content-area2");
             while (list.hasChildNodes()) {
                 list.removeChild(list.firstChild);
             }
             
+            // for getting the data object value
             for (let i = 0; i < 10; i++) {
                 const element = data.data[i];
                 const number = [i];
@@ -36,6 +38,7 @@ document.getElementById('search-btn').addEventListener('click', function(){
                 
             }
     
+            // creating search value, total 10 time.
             function songDetailArea(title, albumTitle, artistName, number){
                 document.getElementById('content-area2').innerHTML += `
                 <div class="search-result col-md-8 mx-auto py-4">
@@ -56,6 +59,7 @@ document.getElementById('search-btn').addEventListener('click', function(){
             }
 
 
+            // for getting lyrics when you tap the get lyrics button
             document.getElementById('button0').addEventListener('click', function(){
                 lyrics(0);
             })
@@ -88,26 +92,33 @@ document.getElementById('search-btn').addEventListener('click', function(){
             })
             
 
+            // for sending object number to find lyrics
             function lyrics(number){
-                document.getElementById('pre').style.display = "block";
+                document.getElementById('pre').style.display = "block"; // for doing empty the lyrics area, when you try to open another lyrics
 
                 const title = data.data[number].title;
                 const artist = data.data[number].artist.name
                 songLyrics(artist, title)
 
+                // for getting lyrics info from the server
                 function songLyrics(artist, title){
                     fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`)
                     .then(response => response.json())
                     .then(data => {
-                        if(data.error){
+                        // if there is no lyrics / if you get error from server
+                        if(data.error){ 
                             document.getElementById('lyrics').innerText = "Lyrics not found";
+                            // for design the error lyrics
                             document.getElementById('lyricsName').innerText = artist + " - " + title;
                             document.getElementById('lyrics').style.color = "#dc3545";
                         }
                         else{
+                            // for showing the lyrics
                             const songLyrics = data.lyrics;
                             document.getElementById('lyrics').innerText = songLyrics;
+                            // for lyrics name
                             document.getElementById('lyricsName').innerText = artist + " - " + title;
+                            // for lyrics design
                             document.getElementById('lyrics').style.color = "white";
 
                         }
